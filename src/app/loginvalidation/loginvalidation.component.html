@@ -1,0 +1,63 @@
+<div class="alert alert-info" role="alert">
+    Please Login from here
+</div>
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" required minlength="4" autocomplete="off"
+            #username="ngModel" placeholder="Enter your username" [(ngModel)]="user.username">
+
+        <div *ngIf="!username?.valid && (username?.dirty || username?.touched)" class="alert alert-danger">
+            <div *ngIf="username.errors.required">
+                Username is required
+            </div>
+            <div *ngIf="username.errors.minlength">
+                Minimum Length is {{username.errors.minlength?.requiredLength}}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required minlength="3"
+            pattern="^[a-zA-Z]+$" autocomplete="off" #password="ngModel" placeholder="Enter your password"
+            [(ngModel)]="user.password">
+
+        <div *ngIf="!password?.valid && (password?.dirty || password?.touched)" class="alert alert-danger">
+            <div *ngIf="password.errors.required">
+                Username is required
+            </div>
+            <div *ngIf="password.errors.minlength">
+                Minimum Length is {{password.errors.minlength?.requiredLength}}
+            </div>
+            <div *ngIf="password.errors.pattern">
+                Only characters are allowed
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="country">Country</label>
+        <select name="country" id="country" class="form-control" [(ngModel)]="user.countryId" required
+            #country="ngModel">
+            <option selected="" value="">--Select Country--</option>
+            <option [value]="country.id" *ngFor="let country of countries">
+                {{country.name}}
+            </option>
+        </select>
+
+        <div *ngIf="!country?.valid && (country?.dirty || country?.touched)" class="alert alert-danger">
+            <div *ngIf="country.errors.required">
+                Country must be selected
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Submit</button>
+    </div>
+</form>
+
+<pre>Value : {{loginForm.value | json }} </pre>
+<pre>Valid : {{loginForm.valid}} </pre>
+<pre>Touched : {{loginForm.touched  }} </pre>
+<pre>Submitted : {{loginForm.submitted  }} </pre>

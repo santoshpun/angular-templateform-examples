@@ -1,0 +1,32 @@
+<div class="alert alert-info" role="alert">
+    Please Login from here
+</div>
+<form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" ngModel>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" ngModel>
+    </div>
+
+    <div class="form-group">
+        <label for="country">Country</label>
+        <select name="country" id="country" class="form-control" ngModel>
+            <option selected="" value="">--Select Country--</option>
+            <option [value]="country.id" *ngFor="let country of countries">
+                {{country.name}}
+            </option>
+        </select>
+    </div>
+
+    <div style="margin-top: 10px;">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+
+<pre>Value : {{loginForm.value | json }} </pre>
+<pre>Valid : {{loginForm.valid}} </pre>
+<pre>Touched : {{loginForm.touched  }} </pre>
+<pre>Submitted : {{loginForm.submitted  }} </pre>
